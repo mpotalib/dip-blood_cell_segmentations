@@ -173,6 +173,7 @@ def main():
     epochs = cfg["train"]["epochs"]
     val_every = cfg["logging"].get("val_every", 1)
     ckpt_dir = Path(cfg["logging"].get("checkpoint_dir", "outputs/checkpoints"))
+    save_all = cfg["logging"].get("save_all_checkpoints", False)
     best_dice = 0.0
 
     for epoch in range(1, epochs + 1):
@@ -187,6 +188,7 @@ def main():
             scheduler.step(val_dice)
             is_best = val_dice > best_dice
             best_dice = max(best_dice, val_dice)
+            ckpt_path = ckpt_dir / (f"epoch_{epoch}.pt" if save_all else "last.pt")
             save_checkpoint(
                 {
                     "epoch": epoch,
@@ -196,7 +198,7 @@ def main():
                     "best_dice": best_dice,
                     "config": cfg,
                 },
-                ckpt_dir / f"epoch_{epoch}.pt",
+                ckpt_path,
                 is_best=is_best,
             )
 

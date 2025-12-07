@@ -43,4 +43,5 @@ logging:
   log_every: 10
   val_every: 1
   checkpoint_dir: outputs/deeplab/checkpoints
+  save_all_checkpoints: false   # keep only last + best to save disk on Kaggle
   seed: 1337
