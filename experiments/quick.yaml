@@ -1,0 +1,46 @@
+data:
+  train_images: data/train/images
+  train_masks: data/train/masks
+  train_annotations:
+  val_images: data/val/images
+  val_masks: data/val/masks
+  val_annotations:
+  test_images: data/test/images
+  test_masks: data/test/masks
+  test_annotations:
+  class_mapping:
+    background: 0
+    n: 1
+    b: 2
+
+model:
+  name: unet
+  in_channels: 3
+  num_classes: 3
+  pretrained_backbone: false
+
+train:
+  epochs: 1
+  batch_size: 8
+  lr: 0.001
+  weight_decay: 0.0001
+  num_workers: 2
+  grad_clip: 1.0
+  amp: false        # CPU only here
+  dice_weight: 0.5
+  class_weights:
+  lr_patience: 2
+
+augmentation:
+  train:
+    horizontal_flip: true
+    vertical_flip: true
+    rotation: 15
+    brightness_contrast: 0.1
+    gaussian_noise: 0.01
+
+logging:
+  log_every: 10
+  val_every: 1
+  checkpoint_dir: outputs/quick/checkpoints
+  seed: 1337

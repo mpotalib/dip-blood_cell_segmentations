@@ -1,0 +1,2 @@
+You need to implement a code solution for this problem which may consist of some existing solutions. You can follow any approach. 
+in presentation, it would be detailed technical presentation covering all aspects of solution along with details results. You need to do thorough experimentation to show your working and understanding. simple results are not good enough
