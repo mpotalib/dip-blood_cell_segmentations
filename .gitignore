@@ -1,6 +1,8 @@
 data/
 outputs/
 *.pt
+*.zip
+bk/
 *.log
 __pycache__/
 .ipynb_checkpoints/
