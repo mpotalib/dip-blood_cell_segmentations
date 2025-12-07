@@ -60,11 +60,13 @@ def main():
         name=cfg["model"].get("name", "unet"),
         in_channels=cfg["model"].get("in_channels", 3),
         num_classes=cfg["model"].get("num_classes", num_classes),
-        pretrained_backbone=False,
+        pretrained_backbone=cfg["model"].get("pretrained_backbone", False),
     ).to(device)
 
     checkpoint = torch.load(args.checkpoint, map_location=device)
-    model.load_state_dict(checkpoint["state_dict"])
+    load_res = model.load_state_dict(checkpoint["state_dict"], strict=False)
+    if load_res.missing_keys or load_res.unexpected_keys:
+        print("Warning: state_dict mismatches - missing:", load_res.missing_keys, "unexpected:", load_res.unexpected_keys)
     model.eval()
 
     dices, ious = [], []
