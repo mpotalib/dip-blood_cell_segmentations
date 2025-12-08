@@ -20,23 +20,23 @@ model:
   pretrained_backbone: true
 
 train:
-  epochs: 50
+  epochs: 35              # best epochs were mid-run; shorten to avoid late drift
   batch_size: 8            # fits T4; raise to 12–16 if memory allows
-  lr: 0.001
+  lr: 0.0005               # lower LR to smooth late-epoch drift
   weight_decay: 0.0001
   num_workers: 4
   grad_clip: 1.0
   amp: true
-  dice_weight: 0.6         # emphasize overlap quality
-  class_weights: [1.0, 1.3, 1.3]   # lift nucleus/boundary classes
-  lr_patience: 3
+  dice_weight: 0.55        # balance CE and Dice for generalization
+  class_weights: [1.0, 1.2, 1.2]   # mild lift for nucleus/boundary
+  lr_patience: 2
 
 augmentation:
   train:
     horizontal_flip: true
     vertical_flip: true
-    rotation: 15
-    brightness_contrast: 0.1
+    rotation: 20
+    brightness_contrast: 0.15
     gaussian_noise: 0.0    # keep noise low for stability
 
 logging:
